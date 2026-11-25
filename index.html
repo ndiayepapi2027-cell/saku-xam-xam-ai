@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101a35">
+<title>SAKU XAM XAM AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#101a35;color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ padding:22px 18px;background:#172443;
+ display:flex;align-items:center;gap:12px;
+ border-bottom:1px solid #34415d;
+}
+.logo{
+ background:#d8b35b;color:#101a35;
+ width:45px;height:45px;border-radius:13px;
+ display:grid;place-items:center;font-size:24px;
+}
+header h2{margin:0;color:#e5c477;font-size:18px}
+header small{color:#c6cede}
+main{padding:20px;max-width:600px;margin:auto}
+.welcome{
+ background:linear-gradient(135deg,#25375c,#172443);
+ padding:24px;border-radius:20px;
+ border:1px solid #465578;
+}
+.welcome small{color:#e5c477}
+h1{font-size:25px;margin:12px 0}
+p{color:#c6cede;line-height:1.5}
+select,input{
+ width:100%;padding:14px;margin:8px 0;
+ border-radius:10px;border:1px solid #53617c;
+ background:#202f4e;color:white;font-size:15px;
+}
+button{
+ border:0;border-radius:12px;padding:14px;
+ background:#d8b35b;color:#101a35;
+ font-weight:bold;font-size:15px;cursor:pointer;
+}
+.full{width:100%;margin-top:12px}
+h3{color:#e5c477;margin-top:28px}
+.subjects{
+ display:grid;grid-template-columns:1fr 1fr;gap:12px;
+}
+.subject{
+ background:#1c2b49;padding:18px 12px;
+ border-radius:14px;border:1px solid #344563;
+ text-align:center;cursor:pointer;
+}
+.subject span{font-size:25px}
+.subject strong{display:block;margin-top:10px}
+.subject:active{background:#344563}
+.result{
+ background:#1c2b49;border-radius:14px;
+ padding:16px;margin-top:15px;display:none;
+ line-height:1.6;
+}
+footer{
+ text-align:center;padding:25px;color:#aebbd0;
+ font-size:12px;
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">🎓</div>
+ <div>
+  <h2>SAKU XAM XAM AI</h2>
+  <small>L'intelligence au service du savoir</small>
+ </div>
+</header>
+
+<main>
+ <section class="welcome">
+  <small>BIENVENUE DANS TON ESPACE ÉDUCATIF</small>
+  <h1>Apprends, révise et réussis !</h1>
+  <p>Ton compagnon scolaire du primaire à la Terminale.</p>
+ </section>
+
+ <h3>📚 Choisis ton niveau</h3>
+ <select id="niveau" onchange="changerNiveau()">
+  <option value="">Sélectionne ta classe</option>
+  <optgroup label="Primaire">
+   <option>CI</option><option>CP</option>
+   <option>CE1</option><option>CE2</option>
+   <option>CM1</option><option>CM2</option>
+  </optgroup>
+  <optgroup label="Collège">
+   <option>6e</option><option>5e</option>
+   <option>4e</option><option>3e</option>
+  </optgroup>
+  <optgroup label="Lycée">
+   <option>Seconde</option>
+   <option>Première L</option>
+   <option>Première S</option>
+   <option>Terminale L</option>
+   <option>Terminale S</option>
+  </optgroup>
+ </select>
+
+ <div id="serie"></div>
+
+ <h3>📖 Les matières</h3>
+ <div class="subjects">
+  <div class="subject" onclick="choisir('Mathématiques')"><span>🔢</span><strong>Mathématiques</strong></div>
+  <div class="subject" onclick="choisir('Français')"><span>📚</span><strong>Français</strong></div>
+  <div class="subject" onclick="choisir('Anglais')"><span>🌍</span><strong>Anglais</strong></div>
+  <div class="subject" onclick="choisir('Histoire-Géographie')"><span>🗺️</span><strong>Histoire-Géo</strong></div>
+  <div class="subject" onclick="choisir('SVT')"><span>🧬</span><strong>SVT</strong></div>
+  <div class="subject" onclick="choisir('Physique-Chimie')"><span>⚗️</span><strong>Physique-Chimie</strong></div>
+  <div class="subject" onclick="choisir('Philosophie')"><span>💡</span><strong>Philosophie</strong></div>
+  <div class="subject" onclick="choisir('Littérature')"><span>✍️</span><strong>Littérature</strong></div>
+ </div>
+
+ <div class="result" id="resultat"></div>
+ <footer>SAKU XAM XAM AI © 2026<br>Ensemble vers la réussite scolaire.</footer>
+</main>
+
+<script>
+let matiere="";
+function changerNiveau(){
+ const n=document.getElementById("niveau").value;
+ const s=document.getElementById("serie");
+ s.innerHTML="";
+ if(n==="Première L"||n==="Première S"||
+ n==="Terminale L"||n==="Terminale S"){
+  s.innerHTML="<p>Série sélectionnée : "+n+"</p>";
+ }
+}
+function choisir(m){
+ matiere=m;
+ const n=document.getElementById("niveau").value;
+ const r=document.getElementById("resultat");
+ r.style.display="block";
+ r.innerHTML="<strong>📘 "+m+"</strong><br>"+
+ (n?"Classe : "+n:"Choisis d'abord ta classe.")+
+ "<br><br>Que souhaites-tu faire ?"+
+ "<br><button class='full' onclick='activite(\"Apprendre\")'>Apprendre un cours</button>"+
+ "<button class='full' onclick='activite(\"Exercices\")'>Faire des exercices</button>"+
+ "<button class='full' onclick='activite(\"Réviser\")'>Réviser</button>";
+}
+function activite(a){
+ const n=document.getElementById("niveau").value;
+ const r=document.getElementById("resultat");
+ if(!n){r.innerHTML="Choisis d'abord ta classe.";return;}
+ r.innerHTML="<strong>"+a+" : "+matiere+"</strong><p>Ton espace de travail est prêt. Le professeur IA sera connecté dans la prochaine étape.</p>";
+}
+</script>
+</body>
+</html>
